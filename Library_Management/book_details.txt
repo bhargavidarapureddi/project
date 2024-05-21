@@ -1,0 +1,6 @@
+1,To Kill a Mockingbird,Harper Lee,Fiction,5
+2,1984,George Orwell,Dystopian,9
+3,Pride and Prejudice,Jane Austen,Romance,8
+4,The Great Gatsby,F. Scott Fitzgerald,Classics,14
+5,The Catcher in the Rye,J.D. Salinger,Coming-of-age,10
+6,The Hobbit,J.R.R.tolkien,Fantacy adventure,3
