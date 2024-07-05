@@ -1,0 +1,62 @@
+{% extends 'basic.html' %}
+{% block title %}Book Room {% endblock title %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-lg-6 col-xlg-6 col-sm-12 mx-auto my-4 ">
+            <form action="/user/book-room/book" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="hotel">Hotel:</label><br>
+                    <input type="text" class="form-control" id="hotel" name="hotel" value="{{ room.hotel.name }}">
+                    <!-- <select>
+                        <option value="Hyderabad">BY</option>
+                        <option value="Bangalore" >BY</option>
+                        <option value="Goa">BY</option>
+                    </select> -->
+                </div>
+                <div class="form-group">
+                    <label for="location">Location:</label><br>
+                    <input type="text" class="form-control" id="location" name="location" value={{room.hotel.location}}>
+                    <!-- <select>
+                        <option value="Hyderabad">Hyderabad</option>
+                        <option value="Bangalore" >Bangalore</option>
+                        <option value="Goa">Goa</option>
+                    </select> -->
+                </div>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" id="username" name="username" required value="{{ request.user }}">
+                </div>
+                <div class="form-group">
+                    <label for="person">Person:</label>
+                    <input type="number" class="form-control" id="person" name="person" min="1" max="{{ room.capacity }}" required value="{{ room.capacity }}">
+                </div>
+                <div class="form-group">
+                    <label for="check_in">Check-in:</label>
+                    <input type="date" class="form-control" id="check_in" min="{{ todays_date }}" max="{{ max_date }}" name="check_in" required>
+                </div>
+                <div class="form-group">
+                    <label for="check_out">Check-out:</label>
+                    <input type="date" class="form-control" id="check_out" min="{{ tomorrow }}" max="{{ max_date }}" name="check_out" required>
+                </div>
+                <div class="form-group">
+                    <label for="roomtype">Room Type:</label>
+                    <input type="text" class="form-control" id="roomtype" name="roomtype" value="{{ room.get_room_type_display }}">
+                    <!-- <select>
+                        <option value="Basic">Basic</option>
+                        <option value="Deluxe" >Deluxe</option>
+                        <option value="Premium">Premium</option>
+                    </select> -->
+                </div>
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input type="number" class="form-control" id="price" name="price" value={{room.price}}>
+                </div>
+                <button type="submit" class="btn btn-primary">Book Now</button>
+                <input type="hidden" name="room_id" value="{{ room.id }}">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body %}

@@ -1,0 +1,127 @@
+<!-- index.html -->
+
+{% extends 'basic.html' %}
+{% load app_tags %}
+
+{% block title %}Hotel BY{% endblock %}
+
+{% block body %}
+<!-- Booking Section starts here -->
+<section>
+    <div class="container-fluid py-5 px-5">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="row justify-content-center py-5 bg-light">
+                <div class="col-lg-4">
+                    <label for="">Location</label>
+                    <select class="form-control" name="search_location" id="roomstatus">
+                        <option>Location</option>
+                        {% for each_location, each_hotel_id in all_location %}
+                        <option value="{{ each_hotel_id }}">{{ each_location }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-lg-2">
+                    <label for="">Check in</label>
+                    <input class="form-control mr-sm-2" type="date" placeholder="Check in" name="cin" min="{% todays_date %}" max="{% max_date %}" aria-label="Search" required="True">
+                </div>
+                <div class="col-lg-2">
+                    <label for="">Check Out</label>
+                    <input class="form-control mr-sm-2" type="date" placeholder="Check out" name="cout" min="{% tomorrow %}" max="{% max_date %}" aria-label="Search" required="True">
+                </div>
+                <div class="col-lg-2">
+                    <label for="">Person</label>
+                    <input class="form-control mr-sm-2" type="number" placeholder="Person" name="capacity" aria-label="Search" required="True">
+                </div>
+                <div class="col-lg-2">
+                    <input type="submit" value="Check Availability" class="form-control mr-sm-2 btn btn-primary my-4" style="position: relative;top: 7px;">
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<!-- Booking Section ends here -->
+
+<!-- Fetched results appear here -->
+<div class="container-fluid px-0 mx-aut">
+    {% if rooms %}
+    <table class="table">
+        <thead class="o">
+            <th>Type</th>
+            <th>Location</th>
+            <th>Person</th>
+            <th>Price</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            {% for r in rooms %}
+            <tr class="">
+                <td>{{ r.get_room_type_display }}</td>
+                <td>{{ r.hotel.location }}</td>
+                <td>{{ r.capacity }}</td>
+                <td>{{ r.price }}</td>
+                <td><a href="/user/book-room?roomid={{ r.id }}"><button class="btn btn-warning">Book Now</button></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+<!-- Fetched results end here -->
+
+<h3 class="text-center text-dark">Rooms Types</h3>
+
+<!-- Room tables start here -->
+<div class="container-fluid px-0" style="border:1px solid red">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-center">Information</th>
+                <th class="text-center">View</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-center">
+                    <h1>Budget</h1>
+                    <p>Price: $55/day</p>
+                    <p>Size: 30 ft</p>
+                    <p>Capacity: Max person 3</p>
+                    <p>Services: Wifi, TV, Bathroom</p>
+                    <p>Views: Sea View</p>
+                </td>
+                <td class="text-center">
+                    <img src="https://imgproxy.valpas.io/eYRvbO64foZAhDPVCBoG-l6L7FEE4SeU6fpvN6_xM8w/rs:fill:985:549:0/wm:0:ce:0:0:0.4/aHR0cHM6Ly9pbWFnZXMuY3RmYXNzZXRzLm5ldC85Z3NwODg5dXdjbDgvMnNlY0FBUk1rZlMwRjBsdVBXSk12RS9jNTkzMjNhYWMwZjYxOTBkY2JhYWUzYmE1Mzk3YzA1ZC9mNl9maW5sYW5kLnBuZw.jpeg" alt="" class="img-fluid pt-4">
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">
+                    <h1>Premium</h1>
+                    <p>Price: $70/day</p>
+                    <p>Size: 30 ft</p>
+                    <p>Capacity: Max person 3</p>
+                    <p>Services: Wifi, TV, Bathroom</p>
+                    <p>Views: Sea View</p>
+                </td>
+                <td class="text-center">
+                    <img src="https://img.freepik.com/premium-photo/gastronomy-great-outdoors-capturing-flavors-nature_865967-826529.jpg?w=826" alt="" class="img-fluid pt-4">
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">
+                    <h1>Deluxe</h1>
+                    <p>Price: $60/day</p>
+                    <p>Size: 30 ft</p>
+                    <p>Capacity: Max person 3</p>
+                    <p>Services: Wifi, TV, Bathroom</p>
+                    <p>Views: Sea View</p>
+                </td>
+                <td class="text-center">
+                    <img src="https://img.freepik.com/premium-photo/photo-is-must-everyday-work-ai-generated-best-wonderful-photo_865967-1157361.jpg?w=826" alt="" class="img-fluid pt-4">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- Room tables end here -->
+{% endblock body %}
