@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Orders</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin: 0;
+            padding: 0;
+            color: #666;
+        }
+
+        .order-details {
+            margin-bottom: 30px;
+        }
+
+        .product-details {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .product-image {
+            flex: 0 0 100px;
+            margin-right: 20px;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            font-size: 16px;
+        }
+
+        .product-quantity {
+            font-size: 16px;
+        }
+
+        .show-more {
+            cursor: pointer;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .show-more:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title-heading" style="text-align: center;">Orders</h1>
+    
+    {% if cart_contents %}
+    <div class="container">
+        <div class="order-details">
+            <h1>Address details</h1>
+            {% for data in row_data %}
+                <p>{{ data }}</p>
+            {% endfor %}
+        </div>
+
+        <div class="cart-details">
+            <h2>Cart details</h2>
+            {% for item in cart_contents %}
+                <div class="product-details">
+                    <div class="product-image">
+                        <!-- Placeholder image, replace with actual product image -->
+                        <img src="{{ item[4] }}" alt="{{ item[1] }}">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">{{ item[1] }}</h3>
+                        <p class="product-price">Price: ${{ item[2] }}</p>
+                        <p class="product-quantity">Quantity in Cart: {{ item[9] }}</p>
+                        <p class="product-quantity">Total cost  is : {{item[2] * item[9] }}</p>
+                    </div>
+                    
+                </div>
+
+            {% endfor %}
+        </div>
+        <div>
+            <p>Total Price = {{total_amount}}</p>
+        </div>
+    </div>
+    <div style="text-align: center;">
+        <a href="/placeOrder"><button type="button" class="button">Go back</button></a>
+        <a href="/payments"><button type="button" class="button">Continue</button></a>
+    </div>
+    {% else %}
+        <div class="product-order-items">
+            <img src="https://media1.tenor.com/m/l6Tx-EZfwmYAAAAC/kopadari-manishini.gif" class="cart-empty-image" alt="cart empty" />
+            <p class="empty-para">Ikkada Orders undalikadhandi, dhenikandi veellu.. Basic sence undadhu... :)</p>
+        </div>
+        <div style="text-align: center;">
+            <a href="/cart"><button type="button" class="button">Go back</button></a>
+        </div>
+    {% endif %}
+</body>
+</html>

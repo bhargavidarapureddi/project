@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title class="title-heading">Address</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <style>
+        .container {
+            background-color: rgba(255, 255, 255, 0.7); /* Transparent white */
+            padding: 20px;
+            width: 50%;
+            margin: 20px auto;
+            border-radius: 10px;
+        }
+        
+        .container input[type="text"],
+        .container input[type="email"],
+        .container input[type="number"],
+        .container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .container input[type="submit"] {
+            background-color: rgb(64, 144, 235);
+            color: white;
+            cursor: pointer;
+        }
+        table, th, tb {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                    width: 75%;
+        }
+        .container2 {
+            background-color: #f5f5f5; /* Pale white background */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .delivery-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .delivery-table th,
+        .delivery-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .delivery-table th {
+            background-color: #f2f2f2; /* Light grey background for table header */
+        }
+
+        .select-row {
+            transform: scale(1); /* Increase the size of the checkbox */
+        }
+    </style>
+    <body>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="/cart"><button type="button" class="button">GO Back</button></a>
+            <h3 class="title-heading">Add Address</h3>
+        </div>
+        <div class="container">
+            <form method="post">
+                <label for="user_email">User Email:</label><br>
+                <input type="text" id="user_email" name="user_email" required><br><br>
+                <label for="phone">Mobile:</label><br>
+                <input type="text" id="phone" name="phone" required><br><br>
+                <label for="pincode">Pincode:</label><br>
+                <input type="number" id="pincode" name="pincode" required><br><br>
+                <label for="flatnumber">Flat number:</label><br>
+                <input type="text" id="flatnumber" name="flatnumber" required><br><br>
+                <label for="city">City:</label><br>
+                <input type="text" id="city" name="city" required><br><br>
+                <label for="state">State:</label><br>
+                <input type="text" id="state" name="state" required><br><br>
+                <label for="country">Country:</label><br>
+                <input type="text" id="country" name="country" required><br><br>
+                <input type="submit" value="Add Address">
+            </form>
+        </div>
+        <div class="container2">
+            <h2>Delivery to:</h2>
+            <table border="1" class="delivery-table">
+                <tr>
+                    <th>Select</th>
+                    <th>Username</th>
+                    <th>Address</th>
+                    <th>Mobile</th>
+                </tr>
+                {% for data in form_data %}
+                <tr>
+                    <td><input type="checkbox" class="select-row"></td>
+                    <td>{{ data.username }}</td>
+                    <td>
+                        {{ data.flatnumber }}<br>
+                        {{ data.city }}, {{ data.state }}, {{ data.country }}<br>
+                        Pincode: {{ data.pincode }}
+                    </td>
+                    <td>{{ data.phone }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <script>
+                window.onload = function() {
+                    const selectButtons = document.querySelectorAll('.select-row');
+            
+                    selectButtons.forEach(button => {
+                        button.addEventListener('change', function() {
+                            // Uncheck all other checkboxes
+                            selectButtons.forEach(otherButton => {
+                                if (otherButton !== button) {
+                                    otherButton.checked = false;
+                                }
+                            });
+            
+                            // Save selected row data if checkbox is checked
+                            if (this.checked) {
+                                // Get all cells in the row
+                                const cells = this.parentNode.parentNode.cells;
+                                const rowData = [];
+            
+                                // Iterate over cells and save text content to rowData list
+                                for (let i = 0; i < cells.length; i++) {
+                                    rowData.push(cells[i].innerText.trim());
+                                }
+            
+                                // Create a hidden form
+                                const form = document.createElement('form');
+                                form.method = 'POST';
+                                form.action = '/orderdetails'; // Specify the endpoint URL
+                
+                                // Add an input field for each data item in rowData
+                                rowData.forEach((data, index) => {
+                                    const input = document.createElement('input');
+                                    input.type = 'hidden';
+                                    input.name = `data_${index}`;
+                                    input.value = data;
+                                    form.appendChild(input);
+                                });
+            
+                                // Append the form to the document body and submit it
+                                document.body.appendChild(form);
+                                form.submit();
+                            }
+                        });
+                    });
+                };
+            </script>
+            
+            
+        </div>
+        
+        
+        
+    </body>
+</html>

@@ -1,0 +1,105 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn4.vectorstock.com/i/1000x1000/72/73/red-letter-a-logo-vector-18697273.jpg">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <!-- NAV BAR -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <img class="logo-image" src="https://1000logos.net/wp-content/uploads/2021/05/Asko-logo.png" alt="BY STORES">
+        </div>
+        <!-- ADD TO CART -->
+        <div class="nav-items-container">
+            <div class="nav-item">
+                <!-- DIRECT IT TO CART URL -->
+                <a class="cart-link" href="/cart">Cart</a>
+            </div>
+            <!-- ORDER NOW  -->
+            <div class="nav-item">
+                <!-- DIRECT IT TO ORDER URL -->
+                <a href="/orderHistory" class="order-details-link">Order Details</a>
+            </div>
+            <!-- AGE CATEGORY DROP BOX -->
+            <!-- after submitting it gives the data to /displayProducts api in Products -->
+            <form action="/displayProducts" method="get" class="filter-form" name="age_category" id="all_option">
+                <select name="age_category" id="age_category">
+                    <option value="All">All</option>
+                    <option value="below_10">Below 10</option>
+                    <option value="10_to_20">10 to 20</option>
+                    <option value="above_20">Above 20</option>
+                </select>
+                <button type="submit" class="filter-button">Filter</button>
+            </form>
+            <!-- SEARCH BAR -->
+            <div class="search-container">
+                <!-- where there is search fuction in api in products, it directs to it api -->
+                <!-- here the api is @products_api.route('/search') -->
+                <form action="{{ url_for('products_api.search') }}" method="get" class="form">
+                    <input class="search_bar" type="text" name="query" placeholder="Search for Asko products">
+                    <button type="submit">Search</button>
+                </form>  
+            </div>
+            <!-- LOGOUT -->
+            <div class="logout-container">
+                <!-- it redirects it to login page url -->
+                <a href="/login" ><button type="button" class="btn btn-outline-primary">Logout</button></a>
+            </div>
+        </div>
+    </nav>
+
+    <h1 class="title-heading">Product Listing</h1>
+
+    <!-- DISPLAY PRODUCTS -->
+    <div class="product-list">
+        <!-- we get products data from rendering -> @products_api.route('/displayProducts') in products  -->
+        {% if products %}
+        {% for product in products %}
+        <!-- when clicked on product it opens Product detail page /product/{{ product[1] }} -->
+        <!-- open the url of @products_api.route('/product/<string:title>') which opens url-->
+            <div class="product" onclick="window.location.href='/product/{{ product[1] }}';" style="cursor: pointer;">
+                <div class="product-details">
+                    <!-- product Title -->
+                    <h2 class="product-heading">{{ product[1] }}</h2> 
+                    <p class="price">Price: ${{ product[2] }}</p>
+                    <!-- add to cart button to the CART url by the title { product[1] } -->
+                    <form class="form" action="/add_to_cart/{{ product[1] }}" method="post">
+                        <button type="submit" class="button">Add to Cart</button>
+                    </form>
+                </div>
+                <div class="side-image">
+                    <img class="" src="{{ product[4] }}" alt="{{ product[4] }}">
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="empty-para">No products available.</p>
+    {% endif %}
+    </div>
+    <!-- PAGINATION -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <!-- if page is 1 then dont redirect to previous page url -->
+            <!-- it directs to api to index function in @products_api.route('/displayProducts')  -->
+            <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                <a class="page-link" href="{{ url_for('products_api.index', page=page-1) }}">Previous</a>
+            </li>
+            <!-- if page number is between 1 and total then enable next button -->
+            {% for num in range(1, total_pages + 1) %}
+                <li class="page-item {% if page == num %}active{% endif %}">
+                    <a class="page-link" href="{{ url_for('products_api.index', page=num) }}">{{ num }}</a>
+                </li>
+            {% endfor %}
+            <!-- if page number is total page : Last  then disable next button -->
+            <li class="page-item {% if page == total_pages %}disabled{% endif %}">
+                <a class="page-link" href="{{ url_for('products_api.index', page=page+1) }}">Next</a>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>

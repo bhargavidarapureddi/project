@@ -1,0 +1,411 @@
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin-top: 2%;
+}
+
+.product {
+    width: calc(33.333% - 40px);
+    margin-bottom: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: rgb(9, 194, 226) 0px 20px 30px -19px;
+    transition: transform 0.6s ease;
+    margin: -10px;
+    margin-bottom: 20px;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+}
+
+.product-details {
+    text-align: center;
+}
+
+.product-heading {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.price {
+    font-size: 1.2rem;
+    font-family:'Segoe UI';
+    font-style:initial;
+    font-weight: 600
+}
+
+.button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.button-container {
+    text-align: right;
+}
+
+.empty-para {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 25px;
+    font-family: 'Gill Sans';
+}
+
+/* Image Styles  huy*/
+.side-image img {
+    max-width: 350px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Navbar styles budy*/
+.navbar {
+    background-color: #ffffff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/*
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+} */
+
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    width: 100px;
+    margin-right: 10px;
+    margin-top: 15px;
+}
+
+.logo-text {
+    font-size: 15px;
+    color: #333333;
+}
+
+.nav-items-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 100%;
+}
+
+.nav-item {
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: #333333;
+    font-size: 22px;
+    margin-top: 15px;
+}
+
+.cart-link,
+.order-details-link {
+    font-size: 26px;
+}
+
+.filter-form {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333333;
+    font-size: 22px;
+    margin-top: 15px;
+}
+
+.filter-form label,
+.filter-form select{
+    margin-right: 10px;
+}
+
+.filter-form button {
+    background-color: #3399ff;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-button {
+    background-color: #245fdf;
+    border: none;
+    padding: 8px 16px; 
+    border-radius: 4px; 
+    font-size: 22px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
+}
+
+.filter-button:hover {
+    background-color: #f0f0f0; 
+}
+
+/* Search component css */
+
+#age_category option[value="All"] {
+    display: none;
+}
+
+#all_option:checked + #age_category option[value="All"] {
+    display: block;
+}
+
+
+.search-container {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333333;
+    font-size: 22px;
+    margin-top: 15px;
+}
+
+.search_bar {
+    padding: 8px 12px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.search_bar:focus {
+    outline: none;
+    border-color: #3399ff;
+}
+
+.search-container button {
+    background-color: #3399ff;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-container button:hover {
+    background-color: #2672dd;
+}
+
+.cart-details {
+    color: #000000;
+    font-size: 20px;
+    font-family: "Roboto";
+    font-style: normal;
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-items-container {
+        margin-top: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-item {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .nav-item a {
+        font-size: 18px;
+        margin-top: 0;
+    }
+
+    .cart-link,
+    .order-details-link {
+        font-size: 20px;
+    }
+    
+    .filter-form {
+        margin-right: 0;
+    }
+
+    .search-container {
+        margin-top: 20px;
+    }
+}
+
+
+.product-details-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #f0f0f0;
+    background-image: url('https://img.freepik.com/premium-vector/clear-blue-sky-with-clouds-pattern-background-illustration_38782-226.jpg?w=740');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    animation: bg-animation 20s infinite alternate;
+}
+
+.cart-empty-image{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+
+.product-order-items{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.cart-order-items{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;   
+}
+
+
+
+
+
+/*pagination*/
+
+.pagination {
+    margin: 20px 0;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pagination li {
+    margin: 0 5px;
+}
+.pagination li a {
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+}
+.pagination li.disabled a {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+.pagination li.active a {
+    background-color: #0056b3;
+}
+
+
+/* button styling for logout */
+
+
+.btn {
+    margin-top: 16px;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-outline-primary {
+    color: #007bff;
+    background-color: transparent;
+    background-image: none;
+    border-color: #007bff;
+}
+
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+
+/* bg animation */
+
+body {
+    background-color: #f0f0f0;
+    background-image: url('https://img.freepik.com/premium-vector/clear-blue-sky-with-clouds-pattern-background-illustration_38782-226.jpg?w=740');
+    background-repeat: no-repeat;
+    background-attachment: None;
+    background-size: cover;
+    animation: bg-animation 20s infinite alternate;
+}
+
+@keyframes bg-animation {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 100%;
+    }
+}
+
+.para{
+    font-size: 0.8rem;
+    font-family:'Segoe UI';
+    font-style:italic;
+    font-weight: 600;
+}
+.product-heading{
+    font-size: 1.5rem;
+    font-family:'Segoe UI';
+    font-style:initial;
+    font-weight: 700  
+}
+.title-heading{
+    font-size: 1.7rem;
+    font-family:'Segoe UI';
+    font-style:initial;
+    font-weight: 600;   
+}
+
+
+/*card changing...............................................................................................*/
+
+/* Paste the CSS styles from the second code snippet and adjust them as needed */
